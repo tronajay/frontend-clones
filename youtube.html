@@ -6,27 +6,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube</title>
     <link rel="stylesheet" href="style.css">
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.tailwindcss.com?plugins=line-clamp"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body class="">
-    <nav class="flex static top-0 justify-between items-center p-4">
+<body x-data="{ sidebar: false }" class="">
+    <nav class="flex static z-20 bg-white shadow-md lg:shadow-none top-0 justify-between items-center py-2 md:p-4">
         <div class="logo flex items-center">
-            <a href="#"><i class="fa-solid mx-3 text-xl fa-bars"></i></a>
-            <img src="https://aerialsphere.com/wp-content/uploads/youtube-logo-9.png" class="w-40" alt="">
+            <button x-on:click="sidebar = ! sidebar"
+                class="p-1.5 rounded-full px-3 focus:ring-2 focus:ring-gray-400 mx-2"><i
+                    class="fa-solid text-xl hidden md:block fa-bars"></i></button>
+            <img src="https://aerialsphere.com/wp-content/uploads/youtube-logo-9.png" class="w-20 lg:w-40" alt="">
         </div>
-        <div class="center-actions w-full mx-64 items-center flex justify-around">
-            <div class="relative w-full">
-                <input type="text" id="email-adress-icon"
+        <div class="center-actions hidden md:block md:flex w-full mx-24 lg:mx-64 items-center flex justify-around">
+            <div x-data="{history : false}" class="relative w-full">
+                <input @click.away="history = false" x-on:click="history = true" type="text" id="search-icon"
                     class="bg-gray-50 w-full border border-gray-300 text-gray-700 text-sm appearance-none outline-none w-full pl-4 p-2.5"
                     placeholder="Search">
                 <a href="#"
                     class="flex z-10 absolute border border-l-2 border-collapse inset-y-0 right-0 items-center px-3 pointer-events-none">
                     <i class="fa-solid fa-magnifying-glass"></i>
-            </a>
+                </a>
+                <div x-bind:class="history ? '' : 'hidden'"
+                    class="absolute z-20 py-3 mt-1 w-full bg-white shadow-md border border-gray-400">
+                    <div class="search-history-list">
+                        <ol>
+                            <li>
+                                <div href="#"
+                                    class="search-history hover:bg-gray-200 hover:bg-gray-200 px-5 py-2 flex justify-between">
+                                    <div class="title-and-icon items-center flex">
+                                        <p><i class="fa-solid mx-2 fa-clock-rotate-left"></i></p>
+                                        <h2 class="font-bold text-sm">Google Chrome</h2>
+                                    </div>
+                                    <div class="title-and-icon">
+                                        <a href="#" class="text-blue-500 text-sm hover:underline">Remove</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div href="#"
+                                    class="search-history hover:bg-gray-200 hover:bg-gray-200 px-5 py-2 flex justify-between">
+                                    <div class="title-and-icon items-center flex">
+                                        <p><i class="fa-solid mx-2 fa-clock-rotate-left"></i></p>
+                                        <h2 class="font-bold text-sm">Apple Launch Event</h2>
+                                    </div>
+                                    <div class="title-and-icon">
+                                        <a href="#" class="text-blue-500 text-sm hover:underline">Remove</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div href="#"
+                                    class="search-history hover:bg-gray-200 hover:bg-gray-200 px-5 py-2 flex justify-between">
+                                    <div class="title-and-icon items-center flex">
+                                        <p><i class="fa-solid mx-2 fa-clock-rotate-left"></i></p>
+                                        <h2 class="font-bold text-sm">RRR Movie Songs</h2>
+                                    </div>
+                                    <div class="title-and-icon">
+                                        <a href="#" class="text-blue-500 text-sm hover:underline">Remove</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div href="#"
+                                    class="search-history hover:bg-gray-200 hover:bg-gray-200 px-5 py-2 flex justify-between">
+                                    <div class="title-and-icon items-center flex">
+                                        <p><i class="fa-solid mx-2 fa-clock-rotate-left"></i></p>
+                                        <h2 class="font-bold text-sm">Android 12</h2>
+                                    </div>
+                                    <div class="title-and-icon">
+                                        <a href="#" class="text-blue-500 text-sm hover:underline">Remove</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div href="#"
+                                    class="search-history hover:bg-gray-200 hover:bg-gray-200 px-5 py-2 flex justify-between">
+                                    <div class="title-and-icon items-center flex">
+                                        <p><i class="fa-solid mx-2 fa-clock-rotate-left"></i></p>
+                                        <h2 class="font-bold text-sm">Doctor Strange 2 Trailer</h2>
+                                    </div>
+                                    <div class="title-and-icon">
+                                        <a href="#" class="text-blue-500 text-sm hover:underline">Remove</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
             </div>
             <div class="text-xl rounded-full px-2 mx-2 bg-gray-200">
                 <a href="#" class="rounded-full">
@@ -35,160 +105,274 @@
             </div>
         </div>
         <div class="right-actions items-center flex justify-around">
-            <a href="#">
+            <a href="#" class="hidden lg:block">
                 <i class="fa-solid text-2xl text-gray-600 mx-3 fa-video"></i>
             </a>
-            <a href="#">
+            <a href="#" class="hidden lg:block">
                 <i class="fa-solid text-2xl text-gray-600 mx-3 fa-table-cells"></i>
             </a>
-            <a href="#">
+            <a href="#" class="hidden lg:block">
                 <i class="fa-solid text-2xl text-gray-600 mx-3 fa-bell"></i>
             </a>
-            <a href="#" class="mr-4">
-                <img src="https://avatars.githubusercontent.com/u/30269190?v=4" alt=""
-                    class="w-28 ml-3 mr-5 rounded-full" srcset="">
-            </a>
+            <div x-data="{ userProfile: false}" class="relative profile-menu mr-2">
+                <button @click.away="userProfile = false" x-on:click="userProfile = ! userProfile" href="#"
+                    class="mr-4">
+                    <img src="https://avatars.githubusercontent.com/u/30269190?v=4" alt=""
+                        class="w-12 lg:w-28 ml-3 mr-5 rounded-full" srcset="">
+                </button>
+                <div x-bind:class="! userProfile ? 'hidden' : ''"
+                    class="absolute -right-3 z-20 bg-white shadow-lg border-2 w-80 mt-2">
+                    <div class="profile">
+                        <div class="profile-details flex justify-around px-4 py-2 w-full">
+                            <div class="profile-img">
+                                <img src="https://avatars.githubusercontent.com/u/30269190?v=4"
+                                    class="w-12 h-12 rounded-full border-2" alt="">
+                            </div>
+                            <div class="user-profile flex flex-col">
+                                <h3 class="text-md">Ajay Patel</h3>
+                                <p class="text-sm">ajpatel762@gmail.com</p>
+                                <a href="#" class="text-blue-500 my-2 text-sm">
+                                    Manage your google account
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="manage-channel">
+                        <ol>
+                            <li class="px-4 py-3 hover:bg-gray-200 w-full">
+                                <a href="#" class=""><i class="fa-solid mx-2 fa-user"></i> Your Channel</a>
+                            </li>
+                            <li class="px-4 py-3 hover:bg-gray-200 w-full">
+                                <a href="#" class=""><i class="fa-solid mx-2 fa-dollar-sign"></i> Purchase and
+                                    Memberships</a>
+                            </li>
+                            <li class="px-4 py-3 hover:bg-gray-200 w-full">
+                                <a href="#" class=""><i class="fa-solid mx-2 fa-gear"></i> Youtube Studio</a>
+                            </li>
+                            <li class="px-4 py-3 hover:bg-gray-200 w-full">
+                                <a href="#" class=""><i class="fa-solid mx-2 fa-users"></i> Switch Accounts</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
-    <div class="content w-full h-screen flex">
-        <div class="sidebar shadow-xl h-full overflow-auto w-1/6">
-            <ol class="w-full">
-                <li class="w-full px-4 hover:bg-gray-200 py-2">
-                    <a href="#" class="text-lg w-full text-gray-800">
-                        <span><i class="fa-solid fa-house mx-2"></i> Home</span>
+    <div class="content h-full flex">
+        <div x-bind:class="! sidebar ? 'md:block md:w-24 xl:w-1/5' : 'md:block md:w-24'"
+            class="sidebar lg:text-left text-center hidden shadow-xl overflow-y-scroll">
+            <div x-bind:class="! sidebar ? 'xl:block' : 'hidden' " class="desktop-sidebar hidden">
+                <ol class="w-full">
+                    <li class="w-full px-4 hover:bg-gray-200 py-2">
+                        <a href="#" class="text-lg w-full text-gray-800">
+                            <span><i class="fa-solid fa-house mx-2"></i> Home</span>
+                        </a>
+                    </li>
+                    <li class="w-full px-4 hover:bg-gray-200 py-2">
+                        <a href="#" class="text-lg w-full text-gray-800">
+                            <i class="fa-solid fa-compass mx-2"></i> Explore</span>
+                        </a>
+                    </li>
+                    <li class="w-full px-4 hover:bg-gray-200 py-2">
+                        <a href="#" class="text-lg w-full text-gray-800">
+                            <span><i class="fa-solid mx-2 fa-guitar"></i> Shorts</span>
+                        </a>
+                    </li>
+                    <li class="w-full px-4 hover:bg-gray-200 py-2">
+                        <a href="#" class="text-lg w-full text-gray-800">
+                            <span><i class="fa-solid mx-2 fa-tv"></i> Subscriptions</span>
+                        </a>
+                    </li>
+                </ol>
+                <ol class="w-full border-t-2 mt-2">
+                    <li class="w-full px-4 hover:bg-gray-200 py-2">
+                        <a href="#" class="text-lg w-full text-gray-800">
+                            <i class="fa-solid mx-2 fa-photo-film"></i>
+                            Libray
+                        </a>
+                    </li>
+                    <li class="w-full px-4 hover:bg-gray-200 py-2">
+                        <a href="#" class="text-lg w-full text-gray-800">
+                            <i class="fa-solid mx-2 fa-clock-rotate-left"></i>
+                            History
+                            </span>
+                        </a>
+                    </li>
+                    <li class="w-full px-4 hover:bg-gray-200 py-2">
+                        <a href="#" class="text-lg w-full text-gray-800">
+                            <span><i class="fa-solid mx-2 fa-clock"></i> Watch Later</span>
+                        </a>
+                    </li>
+                    <li class="w-full pl-6 hover:bg-gray-200 py-2">
+                        <a href="#" class="text-lg w-full text-gray-800">
+                            <span><i class="fa-solid fa-thumbs-up"></i> Liked Videos</span>
+                        </a>
+                    </li>
+                </ol>
+                <ol class="w-full border-t-2 mt-2">
+                    <div class="subscription-heading py-2">
+                        <h2 class=" px-8 text-gray-600 text-lg uppercase font-bold">
+                            Subscriptions
+                        </h2>
+                    </div>
+                    <li class="w-full px-4 hover:bg-gray-200 py-2">
+                        <a href="#" class="text-lg w-full text-gray-800">
+                            <span><i class="fa-solid mx-2 fa-music"></i> Music</span>
+                        </a>
+                    </li>
+                    <li class="w-full pl-6 hover:bg-gray-200 py-2">
+                        <a href="#" class="text-lg w-full text-gray-800">
+                            <i class="fa-solid fa-basketball"></i> Sports</span>
+                        </a>
+                    </li>
+                    <li class="w-full pl-5 hover:bg-gray-200 py-2">
+                        <a href="#" class="text-lg w-full text-gray-800">
+                            <span><i class="fa-solid mr-1 fa-gamepad"></i> Gaming</span>
+                        </a>
+                    </li>
+                    <li class="w-full pl-4 hover:bg-gray-200 py-2">
+                        <a href="#" class="text-lg w-full text-gray-800">
+                            <span><i class="fa-solid mx-2 fa-clapperboard"></i> Movies</span>
+                        </a>
+                    </li>
+                </ol>
+                <ol class="w-full border-t-2 mt-2">
+                    <div class="subscription-heading py-2">
+                        <h2 class="text-center text-gray-600 text-lg uppercase font-bold">
+                            MORE FROM YOUTUBE
+                        </h2>
+                    </div>
+                    <li class="w-full pl-4 hover:bg-gray-200 py-2">
+                        <a href="#" class="text-lg w-full text-gray-800">
+                            <span><i class="fa-brands mx-1 fa-youtube"></i> Youtube Premium</span>
+                        </a>
+                    </li>
+                    <li class="w-full pl-4 hover:bg-gray-200 py-2">
+                        <a href="#" class="text-lg w-full text-gray-800">
+                            <i class="fa-solid mx-2 fa-film"></i> Movies</span>
+                        </a>
+                    </li>
+                    <li class="w-full pl-4 hover:bg-gray-200 py-2">
+                        <a href="#" class="text-lg w-full text-gray-800">
+                            <i class="fa-brands mx-2 fa-xbox"></i> Gaming</span>
+                        </a>
+                    </li>
+                    <li class="w-full pl-4 hover:bg-gray-200 py-2">
+                        <a href="#" class="text-lg w-full text-gray-800">
+                            <span><i class="fa-solid mx-2 fa-tower-broadcast"></i> Live</span>
+                        </a>
+                    </li>
+                    <li class="w-full pl-4 hover:bg-gray-200 py-2">
+                        <a href="#" class="text-lg w-full text-gray-800">
+                            <span><i class="fa-solid mx-2 fa-glasses"></i> Fashion & Beauty</span>
+                        </a>
+                    </li>
+                    <li class="w-full pl-4 hover:bg-gray-200 py-2">
+                        <a href="#" class="text-lg w-full text-gray-800">
+                            <span><i class="fa-solid mx-2 fa-lightbulb"></i> Learning</span>
+                        </a>
+                    </li>
+                    <li class="w-full pl-4 hover:bg-gray-200 py-2">
+                        <a href="#" class="text-lg w-full text-gray-800">
+                            <span><i class="fa-solid mx-2 fa-trophy"></i> Sports</span>
+                        </a>
+                    </li>
+                </ol>
+            </div>
+            <ol x-bind:class="!sidebar ? 'xl:hidden' : '' " class="">
+                <li class="w-full text-center hover:bg-gray-200 py-2">
+                    <a href="#" class="w-full py-3 text-gray-800">
+                        <p><i class="fa-brands text-lg mx-1 fa-youtube"></i></p>
+                        <p class="text-xs font-thin">Home</p>
                     </a>
                 </li>
-                <li class="w-full px-4 hover:bg-gray-200 py-2">
-                    <a href="#" class="text-lg w-full text-gray-800">
-                        <i class="fa-solid fa-compass mx-2"></i> Explore</span>
+                <li class="w-full text-center hover:bg-gray-200 py-2">
+                    <a href="#" class="w-full py-3 text-gray-800">
+                        <p>
+                            <i class="fa-solid text-lg mx-1 fa-compass"></i>
+                        </p>
+                        <p class="text-xs font-thin">Explore</p>
                     </a>
                 </li>
-                <li class="w-full px-4 hover:bg-gray-200 py-2">
-                    <a href="#" class="text-lg w-full text-gray-800">
-                        <span><i class="fa-solid mx-2 fa-guitar"></i> Shorts</span>
+                <li class="w-full text-center hover:bg-gray-200 py-2">
+                    <a href="#" class="w-full py-3 text-gray-800">
+                        <p><i class="fa-solid text-lg mx-1 fa-play"></i></p>
+                        <p class="text-xs font-thin">Shorts</p>
                     </a>
                 </li>
-                <li class="w-full px-4 hover:bg-gray-200 py-2">
-                    <a href="#" class="text-lg w-full text-gray-800">
-                        <span><i class="fa-solid mx-2 fa-tv"></i> Subscriptions</span>
+                <li class="w-full text-center hover:bg-gray-200 py-2">
+                    <a href="#" class="w-full py-3 text-gray-800">
+                        <p><i class="fa-solid text-lg mx-1 fa-tv"></i></p>
+                        <p class="text-xs font-thin">Subscriptions</p>
                     </a>
                 </li>
-            </ol>
-            <ol class="w-full border-t-2 mt-2">
-                <li class="w-full px-4 hover:bg-gray-200 py-2">
-                    <a href="#" class="text-lg w-full text-gray-800">
-                        <span><i class="fa-solid mx-2 fa-photo-film"></i> Library</span>
-                    </a>
-                </li>
-                <li class="w-full px-4 hover:bg-gray-200 py-2">
-                    <a href="#" class="text-lg w-full text-gray-800">
-                        <i class="fa-solid mx-2 fa-clock-rotate-left"></i> History</span>
-                    </a>
-                </li>
-                <li class="w-full px-4 hover:bg-gray-200 py-2">
-                    <a href="#" class="text-lg w-full text-gray-800">
-                        <span><i class="fa-solid mx-2 fa-clock"></i> Watch Later</span>
-                    </a>
-                </li>
-                <li class="w-full pl-6 hover:bg-gray-200 py-2">
-                    <a href="#" class="text-lg w-full text-gray-800">
-                        <span><i class="fa-solid fa-thumbs-up"></i> Liked Videos</span>
-                    </a>
-                </li>
-            </ol>
-            <ol class="w-full border-t-2 mt-2">
-                <div class="subscription-heading py-2">
-                    <h2 class=" px-8 text-gray-600 text-lg uppercase font-bold">
-                        Subscriptions
-                    </h2>
-                </div>
-                <li class="w-full px-4 hover:bg-gray-200 py-2">
-                    <a href="#" class="text-lg w-full text-gray-800">
-                        <span><i class="fa-solid mx-2 fa-music"></i> Music</span>
-                    </a>
-                </li>
-                <li class="w-full pl-6 hover:bg-gray-200 py-2">
-                    <a href="#" class="text-lg w-full text-gray-800">
-                        <i class="fa-solid fa-basketball"></i> Sports</span>
-                    </a>
-                </li>
-                <li class="w-full pl-5 hover:bg-gray-200 py-2">
-                    <a href="#" class="text-lg w-full text-gray-800">
-                        <span><i class="fa-solid mr-1 fa-gamepad"></i> Gaming</span>
-                    </a>
-                </li>
-                <li class="w-full pl-4 hover:bg-gray-200 py-2">
-                    <a href="#" class="text-lg w-full text-gray-800">
-                        <span><i class="fa-solid mx-2 fa-clapperboard"></i> Movies</span>
-                    </a>
-                </li>
-            </ol>
-            <ol class="w-full border-t-2 mt-2">
-                <div class="subscription-heading py-2">
-                    <h2 class="text-center text-gray-600 text-lg uppercase font-bold">
-                        MORE FROM YOUTUBE
-                    </h2>
-                </div>
-                <li class="w-full pl-4 hover:bg-gray-200 py-2">
-                    <a href="#" class="text-lg w-full text-gray-800">
-                        <span><i class="fa-brands mx-1 fa-youtube"></i> Youtube Premium</span>
-                    </a>
-                </li>
-                <li class="w-full pl-4 hover:bg-gray-200 py-2">
-                    <a href="#" class="text-lg w-full text-gray-800">
-                        <i class="fa-solid mx-2 fa-film"></i> Movies</span>
-                    </a>
-                </li>
-                <li class="w-full pl-4 hover:bg-gray-200 py-2">
-                    <a href="#" class="text-lg w-full text-gray-800">
-                        <i class="fa-brands mx-2 fa-xbox"></i> Gaming</span>
-                    </a>
-                </li>
-                <li class="w-full pl-4 hover:bg-gray-200 py-2">
-                    <a href="#" class="text-lg w-full text-gray-800">
-                        <span><i class="fa-solid mx-2 fa-tower-broadcast"></i> Live</span>
-                    </a>
-                </li>
-                <li class="w-full pl-4 hover:bg-gray-200 py-2">
-                    <a href="#" class="text-lg w-full text-gray-800">
-                        <span><i class="fa-solid mx-2 fa-glasses"></i> Fashion & Beauty</span>
-                    </a>
-                </li>
-                <li class="w-full pl-4 hover:bg-gray-200 py-2">
-                    <a href="#" class="text-lg w-full text-gray-800">
-                        <span><i class="fa-solid mx-2 fa-lightbulb"></i> Learning</span>
-                    </a>
-                </li>
-                <li class="w-full pl-4 hover:bg-gray-200 py-2">
-                    <a href="#" class="text-lg w-full text-gray-800">
-                        <span><i class="fa-solid mx-2 fa-trophy"></i> Sports</span>
+                <li class="w-full text-center hover:bg-gray-200 py-2">
+                    <a href="#" class="w-full py-3 text-gray-800">
+                        <p><i class="fa-solid text-lg mx-1 fa-clock-rotate-left"></i></p>
+                        <p class="text-xs font-thin">History</p>
                     </a>
                 </li>
             </ol>
         </div>
-        <div class="video-feed overflow-auto h-screen w-5/6">
-            <div class="recommended-topics sticky top-0 bg-white z-10 p-2 border-y-2 flex flex-nowrap">
-                <a href="#"
-                    class="btn bg-gray-900 text-white px-4 border-gray-900 py-1 border-2 mx-1 rounded-full">All</a>
-                <a href="#" class="btn bg-gray-200 px-4 border-gray-300 py-1 border-2 mx-1 rounded-full">Marvel
-                    Studios</a>
-                <a href="#" class="btn bg-gray-200 px-4 border-gray-300 py-1 border-2 mx-1 rounded-full">Technology</a>
-                <a href="#" class="btn bg-gray-200 px-4 border-gray-300 py-1 border-2 mx-1 rounded-full">Trailers</a>
-                <a href="#" class="btn bg-gray-200 px-4 border-gray-300 py-1 border-2 mx-1 rounded-full">Doctor Strange</a>
-                <a href="#" class="btn bg-gray-200 px-4 border-gray-300 py-1 border-2 mx-1 rounded-full">Gadgets</a>
-                <a href="#" class="btn bg-gray-200 px-4 border-gray-300 py-1 border-2 mx-1 rounded-full">Web Series</a>
-                <a href="#" class="btn bg-gray-200 px-4 border-gray-300 py-1 border-2 mx-1 rounded-full">Apple</a>
-                <a href="#" class="btn bg-gray-200 px-4 border-gray-300 py-1 border-2 mx-1 rounded-full">Recently Uploaded</a>
+        <div class="video-feed w-full overflow-auto h-screen">
+            <div
+                class="recommended-topics lg:flex sticky top-0 overflow-x-auto top-0 bg-white z-10 p-2 py-4 border-y-2 flex">
+                <div class="flex-shrink-0">
+                    <a href="#"
+                        class="btn bg-gray-900 text-white px-4 border-gray-900 py-1 border-2 mx-1 rounded-full">All</a>
+                </div>
+                <div class="flex-shrink-0">
+                    <a href="#" class="btn bg-gray-200 px-4 border-gray-300 py-1 border-2 mx-1 rounded-full">Marvel
+                        Studios</a>
+                </div>
+                <div class="flex-shrink-0">
+                    <a href="#"
+                        class="btn bg-gray-200 px-4 border-gray-300 py-1 border-2 mx-1 rounded-full">Technology</a>
 
+                </div>
+                <div class="flex-shrink-0">
+                    <a href="#"
+                        class="btn bg-gray-200 px-4 border-gray-300 py-1 border-2 mx-1 rounded-full">Trailers</a>
+
+                </div>
+                <div class="flex-shrink-0">
+                    <a href="#" class="btn bg-gray-200 px-4 border-gray-300 py-1 border-2 mx-1 rounded-full">Doctor
+                        Strange</a>
+                </div>
+                <div class="flex-shrink-0">
+                    <a href="#" class="btn bg-gray-200 px-4 border-gray-300 py-1 border-2 mx-1 rounded-full">Gadgets</a>
+
+                </div>
+                <div class="flex-shrink-0">
+                    <a href="#" class="btn bg-gray-200 px-4 border-gray-300 py-1 border-2 mx-1 rounded-full">Web
+                        Series</a>
+                </div>
+                <div class="flex-shrink-0">
+                    <a href="#" class="btn bg-gray-200 px-4 border-gray-300 py-1 border-2 mx-1 rounded-full">Apple</a>
+                </div>
+                <div class="flex-shrink-0">
+                    <a href="#" class="btn bg-gray-200 px-4 border-gray-300 py-1 border-2 mx-1 rounded-full">Recently
+                        Uploaded</a>
+                </div>
+                <div class="flex-shrink-0">
+                    <div class="flex-shrink-0">
+                        <a href="#" class="btn bg-gray-200 px-4 border-gray-300 py-1 border-2 mx-1 rounded-full">Marvel
+                            Cinematic Universe</a>
+                    </div>
+                </div>
             </div>
-            <div class="videos p-5 grid grid-cols-4">
-                <div class="video-card w-full p-2 transition ease-out hover:delay-700 delay-100 hover:-translate-y-1 hover:scale-125 hover:z-10 hover:shadow-md bg-white">
+            <div class="videos p-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                <div
+                    class="video-card w-full p-2 transition ease-out hover:delay-700 delay-100 hover:-translate-y-1 md:hover:scale-125 hover:z-10 hover:shadow-md bg-white">
                     <div class="thumbnail relative">
                         <img src="https://i.ytimg.com/vi/Rt_UqUm38BI/maxresdefault.jpg" class="w-full" alt="">
-                        <span class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">3:02</span>
+                        <span
+                            class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">3:02</span>
                     </div>
                     <div class="video-content flex pt-4">
-                        <img src="https://yt3.ggpht.com/fGvQjp1vAT1R4bAKTFLaSbdsfdYFDwAzVjeRVQeikH22bvHWsGULZdwIkpZXktcXZc5gFJuA3w=s176-c-k-c0x00ffffff-no-rj" class="w-10 h-10 rounded-full" alt="">
+                        <img src="https://yt3.ggpht.com/fGvQjp1vAT1R4bAKTFLaSbdsfdYFDwAzVjeRVQeikH22bvHWsGULZdwIkpZXktcXZc5gFJuA3w=s176-c-k-c0x00ffffff-no-rj"
+                            class="w-10 h-10 rounded-full" alt="">
                         <div class="video-title mx-2">
                             <h3 class="text-sm font-bold">Doctor Strange and Multiverse of Madness Trailer</h3>
                             <span class="channel-name text-xs my-1 text-gray-500">
@@ -200,16 +384,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="video-card w-full transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 hover:scale-125 hover:z-10 hover:shadow-md bg-white p-2">
+                <div
+                    class="video-card w-full transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 md:hover:scale-125 hover:z-10 hover:shadow-md bg-white p-2">
                     <div class="thumbnail relative">
                         <img src="https://i.ytimg.com/vi/3qS7mFl75sY/maxresdefault.jpg" class="w-full" alt="">
-                        <span class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">2:02</span>
-                        
+                        <span
+                            class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">2:02</span>
+
                     </div>
                     <div class="video-content flex pt-4">
-                        <img src="https://yt3.ggpht.com/_CvHmCOdI9VFzlzjDTARgSnm6GyQRRhdYItcsCouTEPsjl5PHpqMl_rbLyxd54b2eNXDhOxeSg=s176-c-k-c0x00ffffff-no-rj" class="w-10 h-10 rounded-full" alt="">
+                        <img src="https://yt3.ggpht.com/_CvHmCOdI9VFzlzjDTARgSnm6GyQRRhdYItcsCouTEPsjl5PHpqMl_rbLyxd54b2eNXDhOxeSg=s176-c-k-c0x00ffffff-no-rj"
+                            class="w-10 h-10 rounded-full" alt="">
                         <div class="video-title mx-2">
-                            <h3 class="text-sm line-clamp-2 font-bold">Indian Police Force - Rohit Shetty | Sidharth Malhotra | New Series Announcement |Amazon Prime Video</h3>
+                            <h3 class="text-sm line-clamp-2 font-bold">Indian Police Force - Rohit Shetty | Sidharth
+                                Malhotra | New Series Announcement |Amazon Prime Video</h3>
                             <span class="channel-name text-xs my-1 text-gray-500">
                                 Amazon Prime Video India
                             </span>
@@ -219,14 +407,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="video-card w-full p-2 bg-white transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 hover:scale-125 hover:z-10 hover:shadow-md">
+                <div
+                    class="video-card w-full p-2 bg-white transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 md:hover:scale-125 hover:z-10 hover:shadow-md">
                     <div class="thumbnail relative">
                         <img src="https://i.ytimg.com/vi/761uRaAoW00/maxresdefault.jpg" class="w-full" alt="">
-                        <span class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">10:52</span>
-                        
+                        <span
+                            class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">10:52</span>
+
                     </div>
                     <div class="video-content flex pt-4">
-                        <img src="https://yt3.ggpht.com/TcXFMFkDeUN8pDqZ-2WShXiG6lXtpoRG2kfRMg3Nd9g947mESyRYqlWtwcoy9FyjiiLVLaTd=s176-c-k-c0x00ffffff-no-rj" class="w-10 h-10 rounded-full" alt="">
+                        <img src="https://yt3.ggpht.com/TcXFMFkDeUN8pDqZ-2WShXiG6lXtpoRG2kfRMg3Nd9g947mESyRYqlWtwcoy9FyjiiLVLaTd=s176-c-k-c0x00ffffff-no-rj"
+                            class="w-10 h-10 rounded-full" alt="">
                         <div class="video-title mx-2">
                             <h3 class="text-sm font-bold">The Batman | Opening Scene | HBO Max</h3>
                             <span class="channel-name text-xs my-1 text-gray-500">
@@ -238,13 +429,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="video-card w-full p-2 transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 hover:scale-125 hover:z-10 hover:shadow-md bg-white">
+                <div
+                    class="video-card w-full p-2 transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 md:hover:scale-125 hover:z-10 hover:shadow-md bg-white">
                     <div class="thumbnail relative">
                         <img src="https://i.ytimg.com/vi/ku4hl6hzRPQ/maxresdefault.jpg" class="w-full" alt="">
-                        <span class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">2:41</span>
+                        <span
+                            class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">2:41</span>
                     </div>
                     <div class="video-content flex pt-4">
-                        <img src="https://yt3.ggpht.com/ytc/AKedOLRxpcB4HxR7fip43w1kIx4hDsCTbOOgARKFgY3qYA=s176-c-k-c0x00ffffff-no-rj" class="w-10 h-10 rounded-full" alt="">
+                        <img src="https://yt3.ggpht.com/ytc/AKedOLRxpcB4HxR7fip43w1kIx4hDsCTbOOgARKFgY3qYA=s176-c-k-c0x00ffffff-no-rj"
+                            class="w-10 h-10 rounded-full" alt="">
                         <div class="video-title mx-2">
                             <h3 class="text-sm font-bold">M1 Ultra | Changing the game | Apple - </h3>
                             <span class="channel-name text-xs my-1 text-gray-500">
@@ -256,13 +450,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="video-card w-full p-2 transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 hover:scale-125 hover:z-10 hover:shadow-md bg-white">
+                <div
+                    class="video-card w-full p-2 transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 md:hover:scale-125 hover:z-10 hover:shadow-md bg-white">
                     <div class="thumbnail relative">
                         <img src="https://i.ytimg.com/vi/tgB1wUcmbbw/maxresdefault.jpg" class="w-full" alt="">
-                        <span class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">1:30</span>
+                        <span
+                            class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">1:30</span>
                     </div>
                     <div class="video-content flex pt-4">
-                        <img src="https://yt3.ggpht.com/fGvQjp1vAT1R4bAKTFLaSbdsfdYFDwAzVjeRVQeikH22bvHWsGULZdwIkpZXktcXZc5gFJuA3w=s176-c-k-c0x00ffffff-no-rj" class="w-10 h-10 rounded-full" alt="">
+                        <img src="https://yt3.ggpht.com/fGvQjp1vAT1R4bAKTFLaSbdsfdYFDwAzVjeRVQeikH22bvHWsGULZdwIkpZXktcXZc5gFJuA3w=s176-c-k-c0x00ffffff-no-rj"
+                            class="w-10 h-10 rounded-full" alt="">
                         <div class="video-title mx-2">
                             <h3 class="text-sm font-bold">Marvel Studios' Thor: Love and Thunder | Official Teaser </h3>
                             <span class="channel-name text-xs my-1 text-gray-500">
@@ -274,15 +471,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="video-card w-full p-2 transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 hover:scale-125 hover:z-10 hover:shadow-md bg-white">
+                <div
+                    class="video-card w-full p-2 transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 md:hover:scale-125 hover:z-10 hover:shadow-md bg-white">
                     <div class="thumbnail relative">
                         <img src="https://i.ytimg.com/vi/K7MeMNCQif4/maxresdefault.jpg" class="w-full" alt="">
-                        <span class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">4:14</span>
+                        <span
+                            class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">4:14</span>
                     </div>
                     <div class="video-content flex pt-4">
-                        <img src="https://yt3.ggpht.com/Xasj7Goij-ghD1aE9f1w3eB8agBLzSzbZqORdDdvnz5q6DYUo0tpP9Vs1MFz5UJPdK25j8bJQNM=s176-c-k-c0x00ffffff-no-rj" class="w-10 h-10 rounded-full" alt="">
+                        <img src="https://yt3.ggpht.com/Xasj7Goij-ghD1aE9f1w3eB8agBLzSzbZqORdDdvnz5q6DYUo0tpP9Vs1MFz5UJPdK25j8bJQNM=s176-c-k-c0x00ffffff-no-rj"
+                            class="w-10 h-10 rounded-full" alt="">
                         <div class="video-title mx-2">
-                            <h3 class="text-sm line-clamp-2 font-bold">Kalaavathi - Music Video | Sarkaru Vaari Paata | Mahesh Babu | Keerthy Suresh | Thaman S | Parasuram </h3>
+                            <h3 class="text-sm line-clamp-2 font-bold">Kalaavathi - Music Video | Sarkaru Vaari Paata |
+                                Mahesh Babu | Keerthy Suresh | Thaman S | Parasuram </h3>
                             <span class="channel-name text-xs my-1 text-gray-500">
                                 Saregama Telgu
                             </span>
@@ -292,15 +493,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="video-card w-full p-2 transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 hover:scale-125 hover:z-10 hover:shadow-md bg-white">
+                <div
+                    class="video-card w-full p-2 transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 md:hover:scale-125 hover:z-10 hover:shadow-md bg-white">
                     <div class="thumbnail relative">
                         <img src="https://i.ytimg.com/vi/nb0BG0ixuQA/maxresdefault.jpg" class="w-full" alt="">
-                        <span class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">16:54</span>
+                        <span
+                            class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">16:54</span>
                     </div>
                     <div class="video-content flex pt-4">
-                        <img src="https://yt3.ggpht.com/Ikb1C4ih2VMvfjma8OO5b39JnHL2CQcQgksB_I7TM-gGA3ERTY589OeLKCYyRQQO0nkE54-f=s176-c-k-c0x00ffffff-no-rj" class="w-10 h-10 rounded-full" alt="">
+                        <img src="https://yt3.ggpht.com/Ikb1C4ih2VMvfjma8OO5b39JnHL2CQcQgksB_I7TM-gGA3ERTY589OeLKCYyRQQO0nkE54-f=s176-c-k-c0x00ffffff-no-rj"
+                            class="w-10 h-10 rounded-full" alt="">
                         <div class="video-title mx-2">
-                            <h3 class="text-sm line-clamp-2 font-bold">Mi 11 Ultra Review - Xiaomi just KILLED Samsung!?</h3>
+                            <h3 class="text-sm line-clamp-2 font-bold">Mi 11 Ultra Review - Xiaomi just KILLED Samsung!?
+                            </h3>
                             <span class="channel-name text-xs my-1 text-gray-500">
                                 Mrwhosetheboss
                             </span>
@@ -310,13 +515,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="video-card w-full p-2 transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 hover:scale-125 hover:z-10 hover:shadow-md bg-white">
+                <div
+                    class="video-card w-full p-2 transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 md:hover:scale-125 hover:z-10 hover:shadow-md bg-white">
                     <div class="thumbnail relative">
                         <img src="https://i.ytimg.com/vi/cC2J_d3xz5c/maxresdefault.jpg" class="w-full" alt="">
-                        <span class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">1:40</span>
+                        <span
+                            class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">1:40</span>
                     </div>
                     <div class="video-content flex pt-4">
-                        <img src="https://yt3.ggpht.com/ytc/AKedOLTqBhsaUG41WGkU1AQuOjCu5-1fjyPS_l-dV8Xzqw=s176-c-k-c0x00ffffff-no-rj" class="w-10 h-10 rounded-full" alt="">
+                        <img src="https://yt3.ggpht.com/ytc/AKedOLTqBhsaUG41WGkU1AQuOjCu5-1fjyPS_l-dV8Xzqw=s176-c-k-c0x00ffffff-no-rj"
+                            class="w-10 h-10 rounded-full" alt="">
                         <div class="video-title mx-2">
                             <h3 class="text-sm line-clamp-2 font-bold">Demon Slayer Season 3 - Official Trailer</h3>
                             <span class="channel-name text-xs my-1 text-gray-500">
@@ -328,15 +536,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="video-card w-full p-2 transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 hover:scale-125 hover:z-10 hover:shadow-md bg-white">
+                <div
+                    class="video-card w-full p-2 transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 md:hover:scale-125 hover:z-10 hover:shadow-md bg-white">
                     <div class="thumbnail relative">
                         <img src="https://i.ytimg.com/vi/L6P3nI6VnlY/maxresdefault.jpg" class="w-full" alt="">
-                        <span class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">1:52</span>
+                        <span
+                            class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">1:52</span>
                     </div>
                     <div class="video-content flex pt-4">
-                        <img src="https://yt3.ggpht.com/ytc/AKedOLTZzZv60B1v76eOC7TsEYZD_TMH2-H5KeYxkfXGBQ=s176-c-k-c0x00ffffff-no-rj" class="w-10 h-10 rounded-full" alt="">
+                        <img src="https://yt3.ggpht.com/ytc/AKedOLTZzZv60B1v76eOC7TsEYZD_TMH2-H5KeYxkfXGBQ=s176-c-k-c0x00ffffff-no-rj"
+                            class="w-10 h-10 rounded-full" alt="">
                         <div class="video-title mx-2">
-                            <h3 class="text-sm line-clamp-2 font-bold">Extraction 2 | Official Tudum Teaser | Netflix</h3>
+                            <h3 class="text-sm line-clamp-2 font-bold">Extraction 2 | Official Tudum Teaser | Netflix
+                            </h3>
                             <span class="channel-name text-xs my-1 text-gray-500">
                                 Netflix
                             </span>
@@ -346,15 +558,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="video-card w-full p-2 transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 hover:scale-125 hover:z-10 hover:shadow-md bg-white">
+                <div
+                    class="video-card w-full p-2 transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 md:hover:scale-125 hover:z-10 hover:shadow-md bg-white">
                     <div class="thumbnail relative">
                         <img src="https://i.ytimg.com/vi/VCQvgWKRMLU/maxresdefault.jpg" class="w-full" alt="">
-                        <span class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">4:34</span>
+                        <span
+                            class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">4:34</span>
                     </div>
                     <div class="video-content flex pt-4">
-                        <img src="https://yt3.ggpht.com/DzaZaTX6gdgjjPI_vkNc2dPbI794UroI9fTAunua0fa7lukDj5NDkjfhS5-w2KXuvXS02r92=s176-c-k-c0x00ffffff-no-rj" class="w-10 h-10 rounded-full" alt="">
+                        <img src="https://yt3.ggpht.com/DzaZaTX6gdgjjPI_vkNc2dPbI794UroI9fTAunua0fa7lukDj5NDkjfhS5-w2KXuvXS02r92=s176-c-k-c0x00ffffff-no-rj"
+                            class="w-10 h-10 rounded-full" alt="">
                         <div class="video-title mx-2">
-                            <h3 class="text-sm line-clamp-2 font-bold">Naacho Naacho (Full Video) RRR - NTR, Ram Charan | M M Kreem | SS Rajamouli | Vishal Mishra & Rahul</h3>
+                            <h3 class="text-sm line-clamp-2 font-bold">Naacho Naacho (Full Video) RRR - NTR, Ram Charan
+                                | M M Kreem | SS Rajamouli | Vishal Mishra & Rahul</h3>
                             <span class="channel-name text-xs my-1 text-gray-500">
                                 T-Series
                             </span>
@@ -364,15 +580,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="video-card w-full p-2 transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 hover:scale-125 hover:z-10 hover:shadow-md bg-white">
+                <div
+                    class="video-card w-full p-2 transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 md:hover:scale-125 hover:z-10 hover:shadow-md bg-white">
                     <div class="thumbnail relative">
                         <img src="https://i.ytimg.com/vi/TcMBFSGVi1c/maxresdefault.jpg" class="w-full" alt="">
-                        <span class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">2:26</span>
+                        <span
+                            class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">2:26</span>
                     </div>
                     <div class="video-content flex pt-4">
-                        <img src="https://yt3.ggpht.com/fGvQjp1vAT1R4bAKTFLaSbdsfdYFDwAzVjeRVQeikH22bvHWsGULZdwIkpZXktcXZc5gFJuA3w=s176-c-k-c0x00ffffff-no-rj" class="w-10 h-10 rounded-full" alt="">
+                        <img src="https://yt3.ggpht.com/fGvQjp1vAT1R4bAKTFLaSbdsfdYFDwAzVjeRVQeikH22bvHWsGULZdwIkpZXktcXZc5gFJuA3w=s176-c-k-c0x00ffffff-no-rj"
+                            class="w-10 h-10 rounded-full" alt="">
                         <div class="video-title mx-2">
-                            <h3 class="text-sm line-clamp-2 font-bold">Marvel Studios' Avengers: Endgame - Official Trailer</h3>
+                            <h3 class="text-sm line-clamp-2 font-bold">Marvel Studios' Avengers: Endgame - Official
+                                Trailer</h3>
                             <span class="channel-name text-xs my-1 text-gray-500">
                                 Marvel Entertainment
                             </span>
@@ -382,15 +602,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="video-card w-full p-2 transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 hover:scale-125 hover:z-10 hover:shadow-md bg-white">
+                <div
+                    class="video-card w-full p-2 transition ease-in-out delay-100 hover:delay-700 hover:-translate-y-1 md:hover:scale-125 hover:z-10 hover:shadow-md bg-white">
                     <div class="thumbnail relative">
                         <img src="https://i.ytimg.com/vi/r1Q5c61vhag/maxresdefault.jpg" class="w-full" alt="">
-                        <span class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">3:14</span>
+                        <span
+                            class="timer absolute right-3 text-white bg-black text-xs px-2 rounded py-0.5 bottom-2">3:14</span>
                     </div>
                     <div class="video-content flex pt-4">
-                        <img src="https://yt3.ggpht.com/DzaZaTX6gdgjjPI_vkNc2dPbI794UroI9fTAunua0fa7lukDj5NDkjfhS5-w2KXuvXS02r92=s176-c-k-c0x00ffffff-no-rj" class="w-10 h-10 rounded-full" alt="">
+                        <img src="https://yt3.ggpht.com/DzaZaTX6gdgjjPI_vkNc2dPbI794UroI9fTAunua0fa7lukDj5NDkjfhS5-w2KXuvXS02r92=s176-c-k-c0x00ffffff-no-rj"
+                            class="w-10 h-10 rounded-full" alt="">
                         <div class="video-title mx-2">
-                            <h3 class="text-sm line-clamp-2 font-bold">Sholay Video Song - RRR - NTR, Ram Charan, Alia Bhatt, Ajay Devgn | M M Kreem | SS Rajamouli</h3>
+                            <h3 class="text-sm line-clamp-2 font-bold">Sholay Video Song - RRR - NTR, Ram Charan, Alia
+                                Bhatt, Ajay Devgn | M M Kreem | SS Rajamouli</h3>
                             <span class="channel-name text-xs my-1 text-gray-500">
                                 T-Series
                             </span>
@@ -400,14 +624,31 @@
                         </div>
                     </div>
                 </div>
-                
-                
+
+
             </div>
         </div>
     </div>
-    <a href="twitter.html" class="floating-button bottom-10 flex items-center rounded-full border-2 border-white shadow-xl right-10 fixed z-20 px-5 py-2 text-white bg-sky-500">
+    <a href="twitter.html"
+        class="floating-button my-2 flex items-center flex fixed bottom-20 right-8 rounded-full border-2 border-white shadow-xl z-20 px-5 py-2 text-white bg-sky-500">
         <i class="fa-brands fa-twitter text-xl mr-2"></i> Twitter Clone <i class="fa-solid ml-2 fa-arrow-right"></i>
     </a>
+    <div class="bottom-actions md:hidden w-full z-20 bottom-0 right-0 fixed">
+        <div class="bottom-navigation-bar flex justify-between z-30 bg-white px-10">
+            <a class="text-center p-3">
+                <p><i class="fa-solid py-1 fa-house"></i></p>
+                <p>Home</p>
+            </a>
+            <a class="text-center p-3">
+                <p><i class="fa-solid py-1 fa-play"></i></p>
+                <p>Shorts</p>
+            </a>
+            <a class="text-center p-3">
+                <p class=""><i class="fa-solid py-1 fa-photo-film"></i></p>
+                <p>Library</p>
+            </a>
+        </div>
+    </div>
 </body>
 
 </html>
